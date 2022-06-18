@@ -1,7 +1,9 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import CurrentUserReducer from './slices/CurrentUser';
-import DarkThemeReducer from './slices/DarkTheme';
-
-const rootReducer = combineReducers({CurrentUserReducer, DarkThemeReducer})
+import { combineReducers } from "@reduxjs/toolkit";
+import DarkThemeReducer from "./slices/DarkTheme";
+import ScoreReducer from "./slices/Score";
+const rootReducer = combineReducers({
+  DarkThemeReducer,
+  ScoreReducer,
+});
 export default rootReducer;
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof rootReducer>;

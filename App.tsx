@@ -1,50 +1,44 @@
-import { StatusBar } from "expo-status-bar";
-import React from "react";
-import useCachedResources from "./src/hooks/useCachedResources";
-import Routes from "@/navigation/Routes";
 import "react-native-gesture-handler";
+import { StatusBar } from "expo-status-bar";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
-import { store } from "@/state";
-
-import {
-  NavigationContainer,
-  DarkTheme as NavigationDarkTheme,
-  DefaultTheme as NavigationDefaultTheme,
-} from "@react-navigation/native";
-import {
-  DarkTheme as PaperDarkTheme,
-  DefaultTheme as PaperDefaultTheme,
-  Provider as PaperProvider,
-} from "react-native-paper";
-import { MyColors } from "@/styles/ColorPallete";
-import { useAppSelector } from "@/hooks/reduxHooks";
+import { Provider as PaperProvider } from "react-native-paper";
 import { CombinedDarkTheme, CombinedDefaultTheme } from "@/styles/CobinedThems";
+import { getTheme, store } from "@/state";
+import {
+  toggleTheme,
+  useAppDispatch,
+  useAppSelector,
+} from "@/hooks/reduxHooks";
+
+import MainScreen from "@/screens/MainScreen";
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
+  const Themes = ({ children }: { children: React.ReactNode }) => {
+    useEffect(() => {
+      (async () => {
+        const wasThemeDark = await getTheme();
+        if (wasThemeDark !== isThemeDark) {
+          dispatch(toggleTheme());
+        }
+      })();
+    }, []);
 
-  const Themes = () => {
+    const dispatch = useAppDispatch();
     const isThemeDark = useAppSelector(
       (state) => state.DarkThemeReducer.isDarkTheme
     );
+
     let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
-    return (
-      <PaperProvider theme={theme}>
-        <NavigationContainer theme={theme}>
-          <Routes />
-          <StatusBar />
-        </NavigationContainer>
-      </PaperProvider>
-    );
+    return <PaperProvider theme={theme}>{children}</PaperProvider>;
   };
 
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
-      <Provider store={store}>
-        <Themes />
-      </Provider>
-    );
-  }
+  return (
+    <Provider store={store}>
+      <Themes>
+        <MainScreen />
+        <StatusBar />
+      </Themes>
+    </Provider>
+  );
 }

@@ -1,31 +1,29 @@
-import {
-  toggleTheme,
-  useAppDispatch,
-  useAppSelector,
-} from "@/hooks/reduxHooks";
+import { StyleSheet, View } from "react-native";
 import React from "react";
-import { Switch, useTheme } from "react-native-paper";
+import { Caption, Switch } from "react-native-paper";
+import { toggleTheme, useAppDispatch } from "@/hooks/reduxHooks";
 
-interface DarkThemeSwitchProps {}
-
-const DarkThemeSwitch: React.FC<DarkThemeSwitchProps> = ({}) => {
-  const theme = useTheme();
-  const isThemeDark = useAppSelector(
-    (state) => state.DarkThemeReducer.isDarkTheme
-  );
+export default function DarkThemeSwitch() {
+  const [isSwitchOn, setIsSwitchOn] = React.useState(false);
   const dispatch = useAppDispatch();
 
-  const _toggle = () => {
+  const onToggleSwitch = () => {
     dispatch(toggleTheme());
+    setIsSwitchOn(!isSwitchOn);
   };
-  return (
-    <Switch
-      style={[{ backgroundColor: theme.colors.accent }]}
-      color={theme.colors.primary}
-      value={isThemeDark}
-      onValueChange={_toggle}
-    />
-  );
-};
 
-export default DarkThemeSwitch;
+  return (
+    <View style={styles.themeSwitch}>
+      <Caption>Toggle theme: </Caption>
+      <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  themeSwitch: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+});
