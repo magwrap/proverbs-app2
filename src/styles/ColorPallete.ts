@@ -1,5 +1,5 @@
 export const MyColors = {
-  PRIMARY: "#011638",
+  PRIMARY: "#23385A",
   ACCENT: "#CDCDCD",
   TRANSPARENT_BLACK: "rgba(50, 50, 50, 0.4)",
 };

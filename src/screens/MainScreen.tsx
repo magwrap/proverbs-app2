@@ -33,7 +33,7 @@ export default function MainScreen() {
       <View>
         <DarkThemeSwitch />
       </View>
-      <View>
+      <View style={{ flex: 0.15 }}>
         <TitleNScore />
       </View>
       <View>

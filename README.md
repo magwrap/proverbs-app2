@@ -1,8 +1,3 @@
-# expo-template
-Template to copy and work with
-contains:
-- react-native-paper
-- redux
-- typescript
-- firebase
-- react-navigation
+# proverbs app 
+App to practice and play with english/polish proverbs
+
