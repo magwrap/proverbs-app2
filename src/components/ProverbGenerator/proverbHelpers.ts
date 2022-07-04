@@ -1,3 +1,5 @@
+import Animated from "react-native-reanimated";
+
 export function shuffle(array: WordType[]) {
   let currentIndex = array.length,
     randomIndex;
@@ -18,30 +20,20 @@ export function shuffle(array: WordType[]) {
   return array;
 }
 
-//  const splitIntoLines = (arr: string[]) => {
-//     const newArr: WordType[][] = [[]];
-//     let lineLength = 0;
+export const convertAndShuffle = (arrArr: string[][]) => {
+  const newArr: WordType[][] = [];
+  arrArr.map((arr, i) => {
+    newArr.push([]);
+    arr.map((word) => {
+      newArr[i].push({
+        text: word,
+      });
+    });
+  });
 
-//     arr.map((word) => {
-//       const wordLength = word.length * FONT_SIZE + WORD_WIDTH;
-//       lineLength += wordLength;
-//       if (lineLength < LINE_WIDTH) {
-//         newArr[newArr.length - 1].push({
-//           text: word,
-//         });
-//       } else {
-//         lineLength = 0;
-//         newArr.push([
-//           {
-//             text: word,
-//           },
-//         ]);
-//       }
-//     });
+  newArr.map((line) => {
+    return shuffle(line);
+  });
 
-//     newArr.map((line) => {
-//       return shuffle(line);
-//     });
-
-//     return newArr;
-//   };
+  return newArr;
+};
