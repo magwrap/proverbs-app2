@@ -6,6 +6,7 @@ import {
   WORD_HEIGHT,
   WORD_MARGIN,
   WORD_PADDING,
+  WORD_WIDTH,
 } from "@/constants/ProverbConstants";
 import { StyleSheet } from "react-native";
 
@@ -28,6 +29,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   word: {
+    // width: WORD_WIDTH,
     paddingHorizontal: WORD_PADDING,
     height: WORD_HEIGHT,
     marginHorizontal: WORD_MARGIN,

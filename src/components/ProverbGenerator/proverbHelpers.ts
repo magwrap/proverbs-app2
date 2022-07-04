@@ -1,5 +1,3 @@
-import Animated from "react-native-reanimated";
-
 export function shuffle(array: WordType[]) {
   let currentIndex = array.length,
     randomIndex;
@@ -24,9 +22,10 @@ export const convertAndShuffle = (arrArr: string[][]) => {
   const newArr: WordType[][] = [];
   arrArr.map((arr, i) => {
     newArr.push([]);
-    arr.map((word) => {
+    arr.map((word, j) => {
       newArr[i].push({
         text: word,
+        id: j,
       });
     });
   });

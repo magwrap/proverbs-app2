@@ -7,6 +7,7 @@ type InitialScoreState = {
 };
 
 type WordType = {
+  id: number;
   text: string;
   // len: number;
   start?: number;

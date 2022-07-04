@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import React from "react";
-import { Divider } from "react-native-paper";
+import { Button, Divider } from "react-native-paper";
 
 import { convertAndShuffle } from "./proverbHelpers";
 
