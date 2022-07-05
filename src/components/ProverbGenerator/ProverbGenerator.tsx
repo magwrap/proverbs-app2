@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Divider } from "react-native-paper";
 
 import { convertAndShuffle } from "./proverbHelpers";
@@ -7,6 +7,7 @@ import { convertAndShuffle } from "./proverbHelpers";
 import { LINE_HEIGHT } from "@/constants/ProverbConstants";
 import { styles } from "@/styles/proverbStyles";
 import WordsRow from "./WordsRow";
+import { useSharedValue } from "react-native-reanimated";
 
 export default function ProverbGenerator() {
   //TODO: losuje z pobranych slow jedno
@@ -18,6 +19,18 @@ export default function ProverbGenerator() {
   ];
 
   const splittedProverbArr = convertAndShuffle(randomWordsArr);
+
+  //TODO: polaczyc win z przekazywanymi slowami w jakos reduxie
+  //TODO: czy moze przekazywać setWin w dol komponentow ustawiac wygarna dla danego rzędu i jak wszystkie sa na true to zdobywasz punkty i sie resetuje pytanie
+  const [win, setWin] = useState({});
+
+  useEffect(() => {
+    [...Array(randomWordsArr.length)].map((_, i) => {
+      const tempWin = {};
+      tempWin[i] = false;
+      setWin(tempWin);
+    });
+  }, [win]);
 
   return (
     <View style={styles.container}>

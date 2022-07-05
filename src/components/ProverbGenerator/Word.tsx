@@ -9,8 +9,9 @@ import {
   WORD_HEIGHT,
   FONT_SIZE,
 } from "@/constants/ProverbConstants";
+import { LetterColors } from "@/styles/ColorPallete";
 import { styles } from "@/styles/proverbStyles";
-import React, { useEffect } from "react";
+import React from "react";
 import { Platform } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import { Caption, Colors } from "react-native-paper";
@@ -52,20 +53,28 @@ const Word = ({
     onActive: (event, ctx) => {
       x.value = ctx.startX + event.translationX;
       y.value = ctx.startY + event.translationY;
+
+      console.log("abs: ", event.absoluteX, " rel: ", event.translationX);
     },
     onEnd: (event, ctx) => {
       pressed.value = false;
 
       const snapX = (goToVal: number) => {
         const calcPos = (absX: number, absGoToVal: number) => {
-          return x.value - Math.abs(absX - absGoToVal);
+          //something is wrong here: pos fix is not working properly
+          const shift = Math.abs(absX - absGoToVal);
+          if (absX > absGoToVal) {
+            return x.value - shift;
+          }
+          return x.value + shift;
         };
-        const snapPointsX = [calcPos(event.absoluteX, goToVal), WINDOW_WIDTH];
+        const pos = calcPos(event.absoluteX, goToVal);
+        console.log("snapping to: ", goToVal, " realtive shift: ", pos);
+        const snapPointsX = [pos, LINE_WIDTH];
 
         const snapPointX = snapPoint(x.value, event.velocityX, snapPointsX);
 
         x.value = withSpring(snapPointX, { velocity: event.velocityX });
-        console.log("abs: ", event.absoluteX);
       };
 
       const goToStartingPos = () => {
@@ -112,12 +121,6 @@ const Word = ({
       //check if win
       let win = false;
       for (let i = 1; i < rowCtx.value.length; i++) {
-        console.log(
-          "check win: ",
-          rowCtx.value[i - 1].id,
-          " ",
-          rowCtx.value[i].id
-        );
         if (rowCtx.value[i - 1].id >= rowCtx.value[i].id) {
           break;
         } else if (i === rowCtx.value.length - 1) {
@@ -136,9 +139,10 @@ const Word = ({
   });
   const fontFamily = Platform.OS === "ios" ? "Courier" : "monospace";
   const fontStyle = { fontSize: FONT_SIZE, color: Colors.white, fontFamily };
-  const randomColor = Math.floor(Math.random() * 16777215).toString(16); //TODO: dodaj jakas pule kolorow(array) i z niej bedzie losowac
+  const randomColor =
+    LetterColors[Math.floor(Math.random() * LetterColors.length)];
   const wordColor = {
-    backgroundColor: "#" + randomColor,
+    backgroundColor: randomColor,
   };
 
   return (

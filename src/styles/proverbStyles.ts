@@ -27,6 +27,7 @@ export const styles = StyleSheet.create({
     width: LINE_WIDTH,
     flexDirection: "row",
     justifyContent: "center",
+    alignSelf: "center",
   },
   word: {
     // width: WORD_WIDTH,

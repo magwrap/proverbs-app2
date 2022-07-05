@@ -11,6 +11,6 @@ export const DEFAULT_MARGIN = 4;
 
 export const WINDOW_WIDTH = Dimensions.get("window").width;
 export const WINDOW_HEIGHT = Dimensions.get("window").height;
-export const LINE_WIDTH = WINDOW_WIDTH * 0.8;
-export const LINE_HEIGHT = WORD_HEIGHT + 2 * DEFAULT_MARGIN;
+export const LINE_WIDTH = WINDOW_WIDTH * 0.9; //0.8
+export const LINE_HEIGHT = WORD_HEIGHT + 4 * DEFAULT_MARGIN;
 export const SPACE_FROM_LINE = LINE_HEIGHT * 1;
